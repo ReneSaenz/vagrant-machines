@@ -1,0 +1,18 @@
+.project
+.idea
+.chef
+.arcconfig
+**/.DS_Store
+.rspec
+.DS_Store
+
+# Berkshelf
+.vagrant
+Berksfile.lock
+
+# Bundler
+bin/*
+.bundle/*
+
+.kitchen/
+.kitchen.local.yml
