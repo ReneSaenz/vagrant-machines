@@ -1,0 +1,25 @@
+
+Vagrant.require_version ">= 1.9.0"
+
+### Constants ###
+VAGRANT_API = "2"
+
+Vagrant.configure(VAGRANT_API) do |config|
+
+  config.vm.define vm_name = "ubuntuXenial16" do |server|
+
+    server.vm.box = "ubuntu/xenial64"
+    server.vm.hostname = vm_name
+
+    server.vm.provider :virtualbox do |vb|
+      vb.gui = false
+      vb.cpus = 1
+      vb.memory = "1024"
+      vb.name = vm_name
+    end
+   
+    server.vm.provision :shell, path: "bootstrap.sh"
+
+  end
+  
+end
