@@ -1,0 +1,39 @@
+Vagrant.require_version ">= 1.9.0"
+
+### Constants ###
+VAGRANT_API = "2"
+
+### Variables ###
+$box = "bento/centos-7.2"
+
+
+Vagrant.configure(VAGRANT_API) do |config|
+
+   if Vagrant.has_plugin?("vagrant-vbguest") then
+     config.vbguest.auto_update = false
+   end
+
+   config.vm.define vm_name = "bento-centos72" do |server|
+
+      server.vm.box = $box
+      server.vm.hostname = vm_name
+      server.vm.box_check_update = false
+
+
+      server.vm.network "private_network", ip: "192.168.33.10"
+      server.vm.network "forwarded_port", guest: 80, host: 8080
+
+
+      server.vm.provider :virtualbox do |vb|
+         vb.gui = false
+         vb.cpus = 1
+         vb.name = vm_name
+         vb.memory = "1024"
+         vb.functional_vboxsf = false
+         vb.check_guest_additions = false
+      end
+
+      server.vm.provision :shell, path: "bootstrap.sh"
+
+   end
+end
