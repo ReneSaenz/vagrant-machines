@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# https://docs.vagrantup.com.
+# boxes at https://atlas.hashicorp.com/search.
+Vagrant.configure(2) do |config|
+
+
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.hostname = "prometheus"
+
+
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 9090, host: 9090
+  config.vm.network "forwarded_port", guest: 9100, host: 9100
+
+  # config.vm.network "private_network", ip: "192.168.33.10"
+
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.gui = false
+     vb.name = "prometheus-ubuntu"
+     # Customize the amount of memory on the VM:
+     vb.memory = "8192"
+  end
+
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install wget
+  SHELL
+
+
+  config.vm.provision "shell", path: "setup_scripts/node_explorer_setup.sh"
+  config.vm.provision "shell", path: "setup_scripts/prometheus_setup.sh"
+
+end
