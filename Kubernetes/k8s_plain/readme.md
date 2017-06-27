@@ -1,9 +1,16 @@
 # Kubernetes the hard way using a local vagrant setup
 
-**NODE:** _Work in progress_
-
 This setup follows [Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way)<br>
 Since this is a local vagrant setup, no DNS and LB is setup.
+
+
+## Cluster info
+
+- Kubernetes 1.6.4
+- Docker 1.12.6
+- etcd 3.1.4
+
+## Execution
 
 1. Run script to generate certificates `sh generate-certs.sh`
 2. Run `vagrant up`
@@ -38,3 +45,8 @@ node1     Ready     7m        v1.6.4
 node2     Ready     5m        v1.6.4
 node3     Ready     2m        v1.6.4
 ```
+
+## Cluster commands
+
+- [etcd commands](cluster_commands/etcd_commands.md)
+- [kubectl commands](cluster_commands/kubectl_commands.md)
