@@ -10,13 +10,16 @@ CONTROLLER3_IP= "192.68.50.13"
 ETCD1_NAME = "etcd1"
 ETCD2_NAME = "etcd2"
 ETCD3_NAME = "etcd3"
+ETCD1_IP = "192.68.50.11"
+ETCD2_IP = "192.68.50.12"
+ETCD3_IP = "192.68.50.13"
 
-NODE1_IP= "192.68.50.11"
-NODE2_IP= "192.68.50.12"
-NODE3_IP= "192.68.50.13"
+NODE1_IP= "192.68.50.101"
+NODE2_IP= "192.68.50.102"
+NODE3_IP= "192.68.50.103"
 
 KUBERNETES_PUBLIC_ADDRESS = "192.68.50.10"
-ETCD_CLOUD_CONFIG_PATH = "192.68.50.10"
+
 
 ## Variables
 $box = "ubuntu/xenial64"
@@ -92,7 +95,7 @@ Vagrant.configure(VAGRANT_API) do |config|
                  :args => [CONTROLLER1_IP,CONTROLLER1_IP,CONTROLLER2_IP,CONTROLLER3_IP]
 
     controller.vm.provision :shell,
-                 :path => "controller_setup_scripts/controller_setup.sh",
+                 :path => "controller_setup_scripts/kube-controller_setup.sh",
                  :args => CONTROLLER1_IP
 
     controller.vm.provision :shell,
@@ -115,6 +118,10 @@ Vagrant.configure(VAGRANT_API) do |config|
     ## network config
     controller.vm.network :private_network, ip: CONTROLLER1_IP
 
+    #accessing localhost:8080 will access port 80 on the guest machines
+    controller.vm.network "forwarded_port", guest: 9090, host: 9090
+    controller.vm.network "forwarded_port", guest: 80, host: 8080
+
     ## provision
     controller_transfer_certs(controller)
 
@@ -131,7 +138,7 @@ Vagrant.configure(VAGRANT_API) do |config|
                  :args => [CONTROLLER1_IP,CONTROLLER1_IP,CONTROLLER2_IP,CONTROLLER3_IP]
 
     controller.vm.provision :shell,
-                 :path => "controller_setup_scripts/controller_setup.sh",
+                 :path => "controller_setup_scripts/kube-controller_setup.sh",
                  :args => CONTROLLER1_IP
 
     controller.vm.provision :shell,
@@ -170,7 +177,7 @@ Vagrant.configure(VAGRANT_API) do |config|
                  :args => [CONTROLLER2_IP,CONTROLLER1_IP,CONTROLLER2_IP,CONTROLLER3_IP]
 
     controller.vm.provision :shell,
-                 :path => "controller_setup_scripts/controller_setup.sh",
+                 :path => "controller_setup_scripts/kube-controller_setup.sh",
                  :args => CONTROLLER2_IP
 
     controller.vm.provision :shell,
@@ -209,7 +216,7 @@ Vagrant.configure(VAGRANT_API) do |config|
                  :args => [CONTROLLER3_IP,CONTROLLER1_IP,CONTROLLER2_IP,CONTROLLER3_IP]
 
     controller.vm.provision :shell,
-                 :path => "controller_setup_scripts/controller_setup.sh",
+                 :path => "controller_setup_scripts/kube-controller_setup.sh",
                  :args => CONTROLLER3_IP
 
     controller.vm.provision :shell,

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "*** Setting up kubelet service ***"
+
+CONTROLLER1_IP=$1
+CONTROLLER2_IP=$2
+CONTROLLER3_IP=$3
+
+
 cat > kubelet.service <<"EOF"
 [Unit]
 Description=Kubernetes Kubelet
@@ -9,7 +16,7 @@ Requires=docker.service
 
 [Service]
 ExecStart=/usr/bin/kubelet \
-  --api-servers=${API_SERVERS} \
+  --api-servers=https://CONTROLLER1_IP:6443,https://CONTROLLER2_IP:6443,https://CONTROLLER3_IP:6443 \
   --allow-privileged=true \
   --cluster-dns=10.32.0.10 \
   --cluster-domain=cluster.local \
@@ -29,6 +36,11 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
+
+
+sed -i s/CONTROLLER1_IP/$CONTROLLER1_IP/g kubelet.service
+sed -i s/CONTROLLER2_IP/$CONTROLLER2_IP/g kubelet.service
+sed -i s/CONTROLLER3_IP/$CONTROLLER3_IP/g kubelet.service
 
 
 sudo mv kubelet.service /etc/systemd/system/kubelet.service
