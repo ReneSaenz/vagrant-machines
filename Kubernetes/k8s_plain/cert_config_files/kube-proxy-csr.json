@@ -8,10 +8,11 @@
   "names": [
     {
       "C": "US",
-      "L": "Portland",
+      "L": "Dallas",
       "O": "system:node-proxier",
       "OU": "Cluster",
-      "ST": "Oregon"
+      "OU": "TX",
+      "ST": "Texas"
     }
   ]
 }

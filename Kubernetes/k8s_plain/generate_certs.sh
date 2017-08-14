@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # remove previously generated certificates
+if [ ! -e certs_generated ]; then
+	mkdir -p certs_generated
+fi
+
 rm -f certs_generated/*
 
 ## generate CA
