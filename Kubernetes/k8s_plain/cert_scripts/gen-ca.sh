@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR_IN="certs_config_files"
+DIR_IN="cert_config_files"
 DIR_OUT="certs_generated"
 
 echo "*** Generate Certificate Authority ***"
