@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANT_API) do |config|
       vb.memory = "1024"
       vb.name = vm_name
     end
-   
+
     server.vm.provision :shell, path: "bootstrap.sh"
 
   end

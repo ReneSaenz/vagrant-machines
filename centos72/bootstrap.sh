@@ -14,16 +14,8 @@ sudo yum install ruby
 sudo yum install ruby-rdoc ruby-devel
 
 
-
-# Install docker
-#sudo yum install -y docker
-
-# Install the docker gem to interact with chef kitchen
-#gem install kitchen-docker
-
 # Install docker
 #curl -fsSL https://get.docker.com/ | sh
 #sudo service docker start
-
 
 
